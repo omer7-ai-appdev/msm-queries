@@ -13,7 +13,7 @@
   <% director_id = a_movie.director_id %>
   <% director = Director.where({ :id => director_id }).at(0)%>
   <tr>
-    <td><% a_movie.id %></td>
+    <td><%= a_movie.id %></td>
     <td>
       <img src="http://robohash.org/<%= a_movie.image %>"
     </td>
