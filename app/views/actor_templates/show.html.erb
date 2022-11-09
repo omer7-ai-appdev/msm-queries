@@ -54,54 +54,55 @@ Delete actor
   </dd>
 
   <dt>Filmography</dt>
+  
   <table border="1">
-  <% @filmography.each do |a_film| %>
     <tr>
-      <td>
-      <%= a_film.id %>
-      </td>
-      <td>
-      <%= a_film.title%>
-      </td>
-      <td>
-      <%= a_film.year%>
-      </td>
-      <td> 
-      <% d = Director.where({ :id => a_film.director_id }).at(0) %>
-      </td>
-      <td>
-      <%= d.name %>
-      </td>
-      <td>
-      <a href="">
-        Show details
-        </a>
-      </td>
+      <th>
+      Title
+      </th>
 
+      <th>
+      Year
+      </th>
+
+      <th>
+      Director
+      </th>
+
+      <th>
+      Character name
+      </th>
+
+      <th></th>
+    </tr>
+  
+    <tr>
+      <% list_of_roles= Character.where({ :actor_id => @the_actor.id}) %>
+      <% list_of_roles.each do |role| %>
+      <% movie_name = Movie.where({ :id => role.movie_id}).at(0) %>
+      <% director_name = Director.where({ :id => movie_name.director_id}).at(0) %>
     </tr>
 
-    <% end %>
-</table>
+    <td>
+      <%= movie_name.title %>
+    </td>
 
+    <td>
+      <%= movie_name.year %>
+    </td>
 
-#<tr>
-    #<th>Title</th>
-    #<th>Year</th>
-    #<th>Director</th>
-    #<th>Chararcter Name</th>
-    #<th><th>
-  #</tr>
-    #<% list_of_roles= Character.where({ :actor_id => @the_actor.id }) %>
-    #<% list_of_roles.each do |role| %>
-    #<% movie=Movie.where({ :id => role.movie_id }).at(0)%>
-    #<% director=Director.where({ :id => movie.director_id }).at(0)%>
-  #<tr>
-    #<td>movie.title=</td>
-    #<td>movie.year</td>
-    #<td>director.name</td>
-    #<td>role.name</td>
-    #<td></td>
-  #</tr>
-    <% end %>
+    <td>
+      <%= director_name.name %>
+    </td>
 
+    <td>
+      <%= role.name %>
+    </td>
+
+    <td>
+      <a href="/movies/<%=role.movie_id%>">
+        Show details
+      </a>
+    </td>
   </table>
+<% end %>
