@@ -11,6 +11,9 @@ class MoviesController < ApplicationController
     @an_id = params.fetch("an_id") 
      matching_movies = Movie.where({ :id => @an_id })
      @the_movie = matching_movies.at(0)
+     d_id = @the_movie.director_id 
+     @director = Director.where({ :id => d_id }).at(0)
+
     render({ :template => "movie_templates/show.html.erb" })
   end
 
